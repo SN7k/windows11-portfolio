@@ -1,0 +1,120 @@
+[
+  {
+    "id": "aboutme",
+    "title": {
+      "en": "About Me"
+    },
+    "subtitle": {
+      "en": "Learn about Mitch"
+    },
+    "imgSrc": "/img/icons/snk/snk.png",
+    "onDesktop": true,
+    "resizable": true,
+    "windowsHeaderLogo": false,
+    "isSearchVisible": false,
+    "headerPosition": "left",
+    "menuHeaderItemsId": "none",
+    "iconSrc": "/img/icons/snk/snk.png",
+    "initPositionX": 240,
+    "initPositionY": 180,
+    "initWidth": 900,
+    "initHeight": 650,
+    "minWidth": 700,
+    "minHeight": 500,
+    "component": "AboutMe",
+    "customTheme": "aboutme"
+  },
+  {
+    "id": "myProjects",
+    "title": {
+      "en": "My Projects"
+    },
+    "subtitle": {
+      "en": "See all my projects"
+    },
+    "imgSrc": "/img/icons/projects/edge-96.png",
+    "onDesktop": true,
+    "resizable": true,
+    "windowsHeaderLogo": false,
+    "isSearchVisible": false,
+    "headerPosition": "left",
+    "menuHeaderItemsId": "none",
+    "iconSrc": "/img/icons/projects/edge-96.png",
+    "initPositionX": 180,
+    "initPositionY": 100,
+    "initWidth": 660,
+    "initHeight": 500,
+    "minWidth": 200,
+    "minHeight": 160,
+    "component": "MyProjects",
+    "customTheme": "myprojects"
+  },
+  {
+    "id": "contact",
+    "title": {
+      "en": "Mail"
+    },
+    "subtitle": {
+      "en": "Send a message"
+    },
+    "imgSrc": "/img/icons/contact/mail.png",
+    "onDesktop": true,
+    "resizable": true,
+    "windowsHeaderLogo": false,
+    "isSearchVisible": false,
+    "headerPosition": "left",
+    "menuHeaderItemsId": "none",
+    "iconSrc": "/img/icons/contact/mail.png",
+    "initPositionX": 210,
+    "initPositionY": 140,
+    "initWidth": 700,
+    "initHeight": 550,
+    "minWidth": 500,
+    "minHeight": 400,
+    "component": "ContactMe",
+    "customTheme": "mail"
+  },
+  {
+    "id": "calendar",
+    "title": {
+      "en": "Calendar"
+    },
+    "imgSrc": "/img/icons/calendar/calendar.png",
+    "onDesktop": false,
+    "resizable": true,
+    "windowsHeaderLogo": false,
+    "isSearchVisible": false,
+    "headerPosition": "right",
+    "menuHeaderItemsId": "none",
+    "iconSrc": "/img/icons/calendar/calendar.png",
+    "initPositionX": 80,
+    "initPositionY": 80,
+    "initWidth": 900,
+    "initHeight": 600,
+    "minWidth": 800,
+    "minHeight": 500,
+    "component": "Calendar",
+    "customTheme": "calendar"
+  },
+  {
+    "id": "notepad",
+    "title": {
+      "en": "Notepad"
+    },
+    "imgSrc": "/img/icons/notepad/notepad-96.png",
+    "onDesktop": true,
+    "resizable": true,
+    "windowsHeaderLogo": false,
+    "isSearchVisible": false,
+    "headerPosition": "left",
+    "menuHeaderItemsId": "none",
+    "iconSrc": "/img/icons/notepad/notepad-96.png",
+    "initPositionX": 160,
+    "initPositionY": 270,
+    "initWidth": 500,
+    "initHeight": 400,
+    "minWidth": 350,
+    "minHeight": 250,
+    "component": "Notepad"
+  }
+]

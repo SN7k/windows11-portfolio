@@ -1,0 +1,18 @@
+{
+  "menuHeaderItems": {
+    "default": {
+      "en": ["File", "Edit", "View", "Tools"]
+    },
+    "notepad": {
+      "en": ["File", "Edit", "View", "Help"]
+    },
+    
+    
+    "contact": {
+      "en": ["File", "Edit", "View", "Insert", "Format", "Tools", "Message", "Help"]
+    },
+    "none": {
+      "en": []
+    }
+  }
+}

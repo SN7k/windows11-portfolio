@@ -1,0 +1,8 @@
+[
+  { "id": "aboutme", "title": "About Me", "iconSrc": "/img/icons/snk/snk.png" },
+  { "id": "myProjects", "title": "Projects", "iconSrc": "/img/icons/projects/edge-96.png" },
+   { "id": "contact", "title": "Mail", "iconSrc": "/img/icons/contact/mail.png" },
+  { "id": "calendar", "title": "Calendar", "iconSrc": "/img/icons/calendar/calendar.png" },
+  { "id": "notepad", "title": "Notepad", "iconSrc": "/img/icons/notepad/notepad-96.png" }
+ 
+]

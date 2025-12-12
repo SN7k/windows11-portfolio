@@ -1,0 +1,11 @@
+[
+  {
+    "id": "aboutme",
+    "iconSrc": "/img/icons/snk/snk.png",
+    "customName": "SNK"
+  },
+  {
+    "id": "contact",
+    "iconSrc": "/img/icons/contact/mail.png"
+  }
+]
