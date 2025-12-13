@@ -63,7 +63,10 @@ export default function Mail() {
 
         <div className="flex items-center gap-2">
            {/* Social / LinkedIn Badge (From Reference Image) */}
-           <button className="flex items-center gap-2 px-3 py-1.5 bg-[#0077b5]/10 hover:bg-[#0077b5]/20 text-[#0077b5] border border-[#0077b5]/30 rounded-[4px] transition-all">
+           <button 
+             onClick={() => window.open('https://www.linkedin.com/in/shombhunath-karan/', '_blank')}
+             className="flex items-center gap-2 px-3 py-1.5 bg-[#0077b5]/10 hover:bg-[#0077b5]/20 text-[#0077b5] border border-[#0077b5]/30 rounded-[4px] transition-all cursor-pointer"
+           >
              <Linkedin size={16} />
              <span className="text-[13px] font-medium">LinkedIn</span>
            </button>

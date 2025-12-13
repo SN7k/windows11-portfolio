@@ -47,6 +47,7 @@ export default function OfficePage() {
   const [windows, setWindows] = useState<WindowData[]>([])
   const [highestZIndex, setHighestZIndex] = useState(0)
   const [activeWindow, setActiveWindow] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
   const windowsStore = useWindowsStore()
   const volumeStore = useVolumeStore()
 
@@ -65,6 +66,13 @@ export default function OfficePage() {
 
   useEffect(() => {
     windowsStore.loadState()
+
+    // Check if mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
 
     // Handle browser back button
     const handlePopState = (e: PopStateEvent) => {
@@ -98,6 +106,7 @@ export default function OfficePage() {
     window.addEventListener('keydown', handleKeyDown)
 
     return () => {
+      window.removeEventListener('resize', checkMobile)
       window.removeEventListener('popstate', handlePopState)
       window.removeEventListener('keydown', handleKeyDown)
       const script = document.getElementById('spotify-player-script')
@@ -323,8 +332,11 @@ export default function OfficePage() {
 
   return (
     <section
-      className="h-svh w-screen overflow-hidden bg-no-repeat bg-cover bg-center relative"
-      style={{ backgroundImage: `url('${require('@/data/cloudinary-images.json').win11Background}')` }}
+      className="h-svh w-screen overflow-hidden bg-no-repeat bg-cover relative"
+      style={{ 
+        backgroundImage: `url('${require('@/data/cloudinary-images.json').win11Background}')`,
+        backgroundPosition: isMobile ? '63% center' : 'center',
+      }}
       onMouseDown={handleOutsideClick}
     >
       <div id="win11-start-menu-root">
