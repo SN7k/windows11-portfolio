@@ -10,7 +10,7 @@
 
 A pixel-perfect, fully interactive Windows 11 desktop experience built with Next.js, featuring draggable windows, glassmorphism effects, and authentic system animations.
 
-[Live Demo](https://windows11-portfolio.netlify.app) • [Report Bug](mailto:shombhunathkaran@gmail.com) • [Request Feature](mailto:shombhunathkaran@gmail.com)
+[Live Demo](https://portfolio.snk.codes/) • [Report Bug](mailto:shombhunathkaran@gmail.com) • [Request Feature](mailto:shombhunathkaran@gmail.com)
 
 </div>
 
