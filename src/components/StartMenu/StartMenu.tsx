@@ -18,9 +18,10 @@ interface StartMenuProps {
   onLaunch: (id: string) => void
   onClose: () => void
   isOpen?: boolean
+  onPowerAction?: (action: 'shutdown' | 'restart' | 'sleep') => void
 }
 
-export default function StartMenu({ onLaunch, onClose, isOpen = true }: StartMenuProps) {
+export default function StartMenu({ onLaunch, onClose, isOpen = true, onPowerAction }: StartMenuProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [showAllApps, setShowAllApps] = useState(false)
   const [showPowerMenu, setShowPowerMenu] = useState(false)
@@ -307,8 +308,9 @@ export default function StartMenu({ onLaunch, onClose, isOpen = true }: StartMen
                 <button
                   className="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-white/[0.08] active:bg-white/[0.04] text-left transition-colors text-white/90 hover:text-white text-[13px] whitespace-nowrap"
                   onClick={() => {
-                    console.log('Lock')
                     setShowPowerMenu(false)
+                    onClose()
+                    onPowerAction?.('sleep')
                   }}
                 >
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -321,8 +323,9 @@ export default function StartMenu({ onLaunch, onClose, isOpen = true }: StartMen
                 <button
                   className="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-white/[0.08] active:bg-white/[0.04] text-left transition-colors text-white/90 hover:text-white text-[13px] whitespace-nowrap"
                   onClick={() => {
-                    console.log('Shut down')
                     setShowPowerMenu(false)
+                    onClose()
+                    onPowerAction?.('shutdown')
                   }}
                 >
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -333,8 +336,9 @@ export default function StartMenu({ onLaunch, onClose, isOpen = true }: StartMen
                 <button
                   className="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-white/[0.08] active:bg-white/[0.04] text-left transition-colors text-white/90 hover:text-white text-[13px] whitespace-nowrap"
                   onClick={() => {
-                    console.log('Restart')
                     setShowPowerMenu(false)
+                    onClose()
+                    onPowerAction?.('restart')
                   }}
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

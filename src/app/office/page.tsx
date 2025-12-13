@@ -74,12 +74,32 @@ export default function OfficePage() {
       window.history.pushState(null, '', window.location.pathname)
     }
 
+    // Prevent hard refresh (Ctrl+Shift+R, Ctrl+R, F5) on desktop
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Prevent F5
+      if (e.key === 'F5') {
+        e.preventDefault()
+        return false
+      }
+      // Prevent Ctrl+R and Ctrl+Shift+R
+      if (e.ctrlKey && e.key === 'r') {
+        e.preventDefault()
+        return false
+      }
+      if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+        e.preventDefault()
+        return false
+      }
+    }
+
     // Add initial state
     window.history.pushState(null, '', window.location.pathname)
     window.addEventListener('popstate', handlePopState)
+    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('popstate', handlePopState)
+      window.removeEventListener('keydown', handleKeyDown)
       const script = document.getElementById('spotify-player-script')
       if (script) {
         document.head.removeChild(script)
@@ -314,6 +334,20 @@ export default function OfficePage() {
           onLaunch={(id) => {
             openWindow(id)
           }}
+          onPowerAction={(action) => {
+            if (action === 'sleep') {
+              sessionStorage.setItem('currentScreen', 'lock')
+              router.push('/')
+            } else if (action === 'restart') {
+              sessionStorage.clear()
+              sessionStorage.setItem('isRestarting', 'true')
+              router.push('/')
+            } else if (action === 'shutdown') {
+              sessionStorage.clear()
+              sessionStorage.setItem('isShutdown', 'true')
+              router.push('/')
+            }
+          }}
         />
       </div>
       <DesktopAppsLayout
@@ -384,9 +418,15 @@ export default function OfficePage() {
               // Go to lock screen for sleep
               sessionStorage.setItem('currentScreen', 'lock')
               router.push('/')
+            } else if (action === 'restart') {
+              // Restart - completely reset and start from splash screen
+              sessionStorage.clear()
+              sessionStorage.setItem('isRestarting', 'true')
+              router.push('/')
             } else {
-              // Go to login page for shutdown/restart
-              sessionStorage.setItem('currentScreen', 'login')
+              // Shutdown - show black screen
+              sessionStorage.clear()
+              sessionStorage.setItem('isShutdown', 'true')
               router.push('/')
             }
           }}
