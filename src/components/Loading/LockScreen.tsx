@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useVolumeStore } from '@/contexts/VolumeContext'
 
 interface LockScreenProps {
   onUnlock: () => void
@@ -11,6 +12,7 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
   const [date, setDate] = useState('')
   const [isUnlocking, setIsUnlocking] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
+  const volumeStore = useVolumeStore()
 
   const update = () => {
     const now = new Date()
@@ -22,6 +24,10 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
     update()
     const timer = setInterval(update, 1000)
     rootRef.current?.focus()
+    
+    // Play startup sound when lock screen appears
+    volumeStore.playAudio('/sounds/start-windows.mp3')
+    volumeStore.unmuteAudio()
 
     return () => clearInterval(timer)
   }, [])

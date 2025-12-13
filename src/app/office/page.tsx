@@ -65,8 +65,6 @@ export default function OfficePage() {
 
   useEffect(() => {
     windowsStore.loadState()
-    volumeStore.playAudio('/sounds/start-windows.mp3')
-    volumeStore.unmuteAudio()
 
     // Handle browser back button
     const handlePopState = (e: PopStateEvent) => {
@@ -387,12 +385,9 @@ export default function OfficePage() {
               sessionStorage.setItem('currentScreen', 'lock')
               router.push('/')
             } else {
-              // Play shutdown sound and go to login page for shutdown/restart
-              volumeStore.playAudio('/sounds/shutdown-windows.mp3')
-              setTimeout(() => {
-                sessionStorage.setItem('currentScreen', 'login')
-                router.push('/')
-              }, 500)
+              // Go to login page for shutdown/restart
+              sessionStorage.setItem('currentScreen', 'login')
+              router.push('/')
             }
           }}
         />

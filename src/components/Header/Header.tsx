@@ -47,7 +47,6 @@ export default function Header({
   }
 
   const shutdown = () => {
-    volumeStore.playAudio('/sounds/shutdown-windows.mp3')
     volumeStore.unmuteAudio()
   }
 
