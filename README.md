@@ -84,7 +84,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 **SNK**
 
-- Portfolio: [portfolio.snk.com](https://portfolio.snk.com)
+- Portfolio: [snk.codes](https://snk.codes)
 - GitHub: [@SN7k](https://github.com/SN7k)
 
 ---
