@@ -1,0 +1,101 @@
+{
+  "name": "SNK Portfolio - Windows 11",
+  "short_name": "SNK Win11",
+  "description": "Windows 11 style portfolio by Shombhunath Karan (SNK) - Full Stack Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0078D4",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "About Me",
+      "short_name": "About",
+      "description": "View information about SNK",
+      "url": "/office",
+      "icons": [
+        {
+          "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "My Projects",
+      "short_name": "Projects",
+      "description": "Browse my portfolio projects",
+      "url": "/office",
+      "icons": [
+        {
+          "src": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
