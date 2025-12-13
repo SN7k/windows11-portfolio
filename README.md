@@ -76,25 +76,6 @@ src/
 └── layouts/         # Layout components
 ```
 
-## 🌐 Deployment
-
-### Netlify
-```bash
-npm run build
-netlify deploy --prod
-```
-
-### Vercel
-```bash
-npx vercel
-```
-
-### Docker
-```bash
-docker build -t win11-portfolio .
-docker run -p 3000:3000 win11-portfolio
-```
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/SN7k/windows11-portfolio/blob/main/LICENSE) file for details.
@@ -103,7 +84,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 **SNK**
 
-- Portfolio: [portfolio.snk.com](https://portfolio.snk.com)
+- Portfolio: [snk.codes](https://snk.codes)
 - GitHub: [@SN7k](https://github.com/SN7k)
 
 ---
