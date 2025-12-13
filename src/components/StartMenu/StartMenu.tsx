@@ -275,7 +275,7 @@ export default function StartMenu({ onLaunch, onClose, isOpen = true }: StartMen
         <div className="h-16 px-12 flex items-center justify-between mt-auto flex-shrink-0" style={{ background: 'rgba(255, 255, 255, 0.02)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <div className="flex items-center gap-3 hover:bg-white/10 -ml-4 px-4 py-2 rounded-md cursor-pointer transition-colors group">
             <div className="w-8 h-8 rounded-full overflow-hidden relative border border-white/10">
-              <img src="/img/profile.png" alt="User" className="w-full h-full object-cover" onError={(e) => {
+              <img src="https://res.cloudinary.com/dlpskz98w/image/upload/v1765632519/profile_t066kq.png" alt="User" className="w-full h-full object-cover" onError={(e) => {
                 e.currentTarget.style.display = 'none'
                 e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-[10px] font-semibold flex items-center justify-center w-full h-full">SK</span>'
               }} />
