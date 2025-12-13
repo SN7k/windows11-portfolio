@@ -60,7 +60,7 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                <div className="w-[60px] h-[60px] rounded-full bg-[#8B5CF6] overflow-hidden border-2 border-[#1F1F1F] flex items-center justify-center shrink-0">
                   {/* Profile Picture */}
                   <img 
-                    src="/img/icons/snk/snk.png" 
+                    src={require('@/data/cloudinary-images.json').snkIcon} 
                     alt="Profile" 
                     className="w-full h-full object-cover"
                   />

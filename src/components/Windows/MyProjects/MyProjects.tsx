@@ -360,7 +360,7 @@ export default function MyProjects({
 
            <div className="flex items-center gap-1 pl-1">
               <button className="p-2 hover:bg-white/10 rounded-[4px] text-white/80">
-                <img src="/img/icons/snk/snk.png" alt="Profile" className="w-5 h-5 rounded-full" />
+                <img src={require('@/data/cloudinary-images.json').snkIcon} alt="Profile" className="w-5 h-5 rounded-full" />
               </button>
            </div>
         </div>
