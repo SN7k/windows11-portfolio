@@ -24,7 +24,7 @@ import {
   Bus,
   ArrowUpRight
 } from 'lucide-react'
-import projectsShortcuts from '@/data/projects-shortcuts.json'
+import projectsData from '@/data/projects.json'
 
 interface MyProjectsProps {
   onToggleMinimize?: () => void
@@ -369,13 +369,13 @@ export default function MyProjects({
             NEW TAB PAGE CONTENT / IFRAME VIEWER
         ----------------------------------------------------------------------------------*/}
         {showNewTab ? (
-        <div className="flex-1 overflow-y-auto custom-scrollbar bg-cover bg-center relative" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1516664923236-93ce3278970e?q=80&w=2070&auto=format&fit=crop)' }}>
+        <div className="flex-1 overflow-y-auto custom-scrollbar relative bg-gradient-to-br from-[#1a2942] via-[#0f1b2d] to-[#0a1929]">
            
-           {/* Dark Overlay for readability */}
-           <div className="absolute inset-0 bg-black/20"></div>
+           {/* Subtle blur overlay for depth */}
+           <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-transparent to-indigo-950/20 backdrop-blur-[2px]"></div>
 
            {/* Page Content */}
-           <div className="relative z-10 w-full h-full flex flex-col items-center pt-[15vh] px-8">
+           <div className="relative z-10 w-full h-full flex flex-col items-center pt-[15vh] px-4 sm:px-6 md:px-8">
               
               {/* Header Icons (Top Right) */}
               <div className="absolute top-6 right-6 flex items-center gap-4 text-white/90 text-[13px]">
@@ -390,15 +390,15 @@ export default function MyProjects({
                   SEARCH BAR (EXACT REPLICA)
               ------------------------------------------------------------------*/}
               <form onSubmit={handleSearch} className="w-full max-w-[700px] h-[52px] bg-white rounded-full shadow-md flex items-center px-5 gap-3 mb-10 group transition-all hover:shadow-lg">
-                 <Search size={18} className="text-gray-400 ml-1" />
+                 <Search size={18} className="text-gray-400 flex-shrink-0" />
                  <input 
                     type="text" 
                     placeholder="Search the web" 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-1 bg-transparent border-none outline-none text-[16px] text-gray-700 w-full placeholder-gray-400 h-full pb-0.5"
+                    className="flex-1 bg-transparent border-none outline-none text-[16px] text-gray-700 placeholder-gray-400 h-full pb-0.5"
                  />
-                 <div className="flex items-center gap-4 pr-1">
+                 <div className="flex items-center gap-3 flex-shrink-0">
                     <Mic size={20} className="text-gray-500 hover:text-gray-800 cursor-pointer transition-colors" />
                     
                     {/* Multi-colored Visual Search Icon */}
@@ -416,24 +416,19 @@ export default function MyProjects({
               {/* ----------------------------------------------------------------
                   QUICK LINKS (Shortcuts)
               ------------------------------------------------------------------*/}
-              <div className="flex flex-wrap justify-center gap-2 w-full max-w-[900px]">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-[1000px] px-4">
                  
                  {/* All Projects from JSON */}
-                 {projectsShortcuts.map((project) => {
-                   // Use custom icon if provided, otherwise use Google's favicon service
-                   const faviconUrl = project.customIcon 
-                     ? project.customIcon 
-                     : `https://www.google.com/s2/favicons?domain=${new URL(project.url).hostname}&sz=64`
-                   
+                 {projectsData.projects.map((project) => {
                    return (
                      <EdgeQuickLink 
                        key={project.id}
-                       label={project.label} 
-                       iconUrl={faviconUrl}
-                       bg={project.bg}
-                       url={project.url}
-                       isCustomIcon={!!project.customIcon}
-                       onClick={() => navigateToUrl(project.url)}
+                       label={project.name} 
+                       iconUrl={project.image}
+                       bg="bg-[#2D2D2D]"
+                       url={project.demo}
+                       isCustomIcon={true}
+                       onClick={() => navigateToUrl(project.demo)}
                      />
                    )
                  })}
@@ -477,27 +472,29 @@ function EdgeQuickLink({ label, icon, iconUrl, bg, url, isCustomIcon, onClick }:
    }
 
    return (
-      <div className="flex flex-col items-center gap-2 group cursor-pointer w-[80px]" onClick={handleClick}>
-         {/* Icon Container */}
-         <div className={`w-[44px] h-[44px] rounded-[6px] ${bg} flex items-center justify-center text-white/90 shadow-md group-hover:bg-opacity-80 transition-all relative ${isCustomIcon ? 'overflow-hidden' : ''}`}>
+      <div className="flex flex-col gap-3 group cursor-pointer bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl" onClick={handleClick}>
+         {/* Image Container - Responsive height */}
+         <div className={`w-full aspect-video rounded-t-xl ${bg} flex items-center justify-center overflow-hidden shadow-lg relative`}>
             {iconUrl && !imgError ? (
                <img 
                   src={iconUrl} 
                   alt={label} 
-                  className={isCustomIcon ? "w-full h-full object-cover" : "w-6 h-6 object-contain"}
+                  className="w-full h-full object-cover"
                   onError={() => setImgError(true)}
                />
             ) : icon ? (
-               icon
+               <div className="text-3xl">{icon}</div>
             ) : (
-               <div className="text-xs font-bold">{label.charAt(0)}</div>
+               <div className="text-xl font-bold text-white/80">{label.charAt(0)}</div>
             )}
          </div>
          
-         {/* Label */}
-         <span className="text-[11px] text-white/90 font-medium text-shadow-sm px-1 py-0.5 rounded group-hover:bg-black/40 transition-colors w-full text-center truncate">
-            {label}
-         </span>
+         {/* Label - Better organized */}
+         <div className="px-4 pb-4">
+            <span className="text-[13px] text-white font-medium text-left block">
+               {label}
+            </span>
+         </div>
       </div>
    )
 }

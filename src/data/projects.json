@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "id": 0,
+      "name": "SNK",
+      "description": "Personal portfolio and coding showcase website.",
+      "tech": ["NEXT.JS", "REACT", "TAILWIND", "TYPESCRIPT"],
+      "github": "https://github.com/SN7k",
+      "demo": "https://snk.codes",
+      "image": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637769/snk_r0ii4z.png",
+      "type": "PORTFOLIO"
+    },
+    {
+      "id": 1,
+      "name": "INCAMPUS",
+      "description": "Private college network for posts, memories, and campus updates.",
+      "tech": ["REACT", "TYPESCRIPT", "NODE.JS", "MONGODB"],
+      "github": "https://github.com/SN7k/InCampus",
+      "demo": "https://incampus1.netlify.app/",
+      "image": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765634494/incampus_rd6ztk.png",
+      "type": "FULL STACK"
+    },
+    {
+      "id": 2,
+      "name": "BUSSEVA KOLKATA",
+      "description": "Discover Kolkata bus routes, stops, and visuals quickly.",
+      "tech": ["HTML5", "NODE.JS", "MONGODB", "MAPS"],
+      "github": "https://github.com/SN7k/bussevakolkata.site",
+      "demo": "https://bussevakolkata.site",
+      "image": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765634493/busseva_kolkata_hqxevd.png",
+      "type": "UTILITY"
+    },
+    {
+      "id": 3,
+      "name": "Arvyax Wellness",
+      "description": "Wellness app with tips, goal tracking, and curated content.",
+      "tech": ["REACT", "VITE", "TAILWIND", "JWT"],
+      "github": "https://github.com/SN7k/arvyax-wellness-platform",
+      "demo": "https://arvyaxwellness.netlify.app",
+      "image": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765634613/arvyaz_wwrvcq.gif",
+      "type": "WEB APP"
+    },
+    {
+      "id": 4,
+      "name": "Sillysites",
+      "description": "Playful studio portfolio of experimental web experiences.",
+      "tech": ["REACT", "TYPESCRIPT", "TAILWIND"],
+      "github": "https://github.com/SN7k/SillySites",
+      "demo": "https://sillysites.studio/",
+      "image": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765634494/sillysites_ndi9jd.gif",
+      "type": "STUDIO"
+    },
+    {
+      "id": 5,
+      "name": "Splitaa",
+      "description": "Split bills, track expenses, and settle up effortlessly.",
+      "tech": ["JAVASCRIPT", "PHP", "SCSS", "TYPESCRIPT", "HTML", "CSS", "DOCKER"],
+      "github": "https://github.com/SN7k/Splitaa",
+      "demo": "https://splitaa.snk.codes",
+      "image": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765634494/Splitaa_vz5ojx.png",
+      "type": "WEB APP"
+    }
+  ]
+}
