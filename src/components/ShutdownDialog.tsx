@@ -88,7 +88,7 @@ export default function ShutdownDialog({ onCancel, onConfirm }: ShutdownDialogPr
           
           {/* Header: Windows 11 Logo */}
           <div className="flex items-center justify-center mb-5">
-            <img src="/img/windowsfull.png" alt="Windows 11" className="h-[72px] w-auto" />
+            <img src={require('@/data/cloudinary-images.json').windowsFull} alt="Windows 11" className="h-[72px] w-auto" />
           </div>
 
           {/* Main Interaction Area */}

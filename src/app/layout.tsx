@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/png" href="/img/windowsmenu.png" />
+        <link rel="icon" type="image/png" href={require('@/data/cloudinary-images.json').windowsMenu} />
       </head>
       <body className="cursor-default">
         <CopyProtection />

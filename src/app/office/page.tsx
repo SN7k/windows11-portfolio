@@ -304,7 +304,7 @@ export default function OfficePage() {
   return (
     <section
       className="h-svh w-screen overflow-hidden bg-no-repeat bg-cover bg-center relative"
-      style={{ backgroundImage: "url('https://res.cloudinary.com/dlpskz98w/image/upload/v1765632412/win11_mblqcz.jpg')" }}
+      style={{ backgroundImage: `url('${require('@/data/cloudinary-images.json').win11Background}')` }}
       onMouseDown={handleOutsideClick}
     >
       <div id="win11-start-menu-root">

@@ -49,7 +49,7 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
       }}
       tabIndex={0}
       style={{
-        backgroundImage: "url('https://res.cloudinary.com/dlpskz98w/image/upload/v1765632412/Windows11lock_kmlruz.jpg')",
+        backgroundImage: `url('${require('@/data/cloudinary-images.json').lockScreenBackground}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

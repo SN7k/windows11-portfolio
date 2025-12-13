@@ -5,7 +5,7 @@ export default function Login() {
     <section 
       className="h-svh w-screen relative overflow-hidden z-10 bg-black"
       style={{
-        backgroundImage: "url('https://res.cloudinary.com/dlpskz98w/image/upload/v1765632412/Windows11lock_kmlruz.jpg')",
+        backgroundImage: `url('${require('@/data/cloudinary-images.json').lockScreenBackground}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
@@ -16,7 +16,7 @@ export default function Login() {
         <div className="flex flex-col items-center">
           <div className="w-44 h-44 rounded-full bg-white/15 border-2 border-white/25 overflow-hidden flex items-center justify-center">
             <img 
-              src="https://res.cloudinary.com/dlpskz98w/image/upload/v1765632519/profile_t066kq.png" 
+              src={require('@/data/cloudinary-images.json').profile} 
               alt="User Profile" 
               className="w-full h-full object-cover"
               onError={(e) => {

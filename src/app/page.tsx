@@ -77,7 +77,7 @@ export default function HomePage() {
       {!showLock && !showLogin && (
         <div
           className="absolute inset-0 bg-center z-0"
-          style={{ backgroundImage: `url('https://res.cloudinary.com/dlpskz98w/image/upload/v1765632412/win11_mblqcz.jpg')`, backgroundSize: '112%', backgroundRepeat: 'no-repeat' }}
+          style={{ backgroundImage: `url('${require('@/data/cloudinary-images.json').win11Background}')`, backgroundSize: '112%', backgroundRepeat: 'no-repeat' }}
         ></div>
       )}
 

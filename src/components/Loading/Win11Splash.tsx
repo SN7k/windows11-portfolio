@@ -1,7 +1,7 @@
 export default function Win11Splash() {
   return (
     <section className="h-svh w-screen bg-black relative select-none">
-      <img src="/img/Windows11Logo.png" alt="Windows 11 logo" className="win11-logo" />
+      <img src={require('@/data/cloudinary-images.json').windows11Logo} alt="Windows 11 logo" className="win11-logo" />
       <div className="win11-spinner" aria-label="loading" />
       <style jsx>{`
         .win11-logo {
