@@ -33,7 +33,7 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
   const [activeTab, setActiveTab] = useState('overview')
 
   return (
-    <div className="w-full h-full bg-[#1F1F1F] flex overflow-hidden font-sans text-white select-none">
+    <div className="w-full h-full bg-[#1F1F1F] flex md:flex-row flex-col overflow-hidden font-sans text-white select-none">
       <style jsx>{`
         /* Custom scrollbar styling */
         :global(.calendar-scrollbar::-webkit-scrollbar) {
@@ -53,10 +53,10 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
       `}</style>
       
       {/* LEFT SIDEBAR */}
-      <div className="w-[320px] flex flex-col p-6 relative">
+      <div className="md:w-[320px] w-full flex flex-col p-4 md:p-6 relative shrink-0">
             
             {/* 1. PROFILE CARD */}
-            <div className="bg-[#2D2D2D] p-4 rounded-[8px] border border-white/5 flex items-center gap-4 mb-6 hover:bg-[#323232] transition-colors group cursor-default">
+            <div className="bg-[#2D2D2D] p-4 rounded-[8px] border border-white/5 flex items-center gap-4 mb-4 md:mb-6 hover:bg-[#323232] transition-colors group cursor-default">
                <div className="w-[60px] h-[60px] rounded-full bg-[#8B5CF6] overflow-hidden border-2 border-[#1F1F1F] flex items-center justify-center shrink-0">
                   {/* Profile Picture */}
                   <img 
@@ -71,8 +71,8 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                </div>
             </div>
 
-            {/* 2. CONTACT & SOCIALS */}
-            <div className="flex-1 overflow-y-auto calendar-scrollbar">
+            {/* 2. CONTACT & SOCIALS - Only visible on desktop */}
+            <div className="hidden md:flex md:flex-1 overflow-y-auto calendar-scrollbar flex-col">
                <h3 className="text-[13px] font-semibold text-white/40 mb-3 uppercase tracking-wider px-1">Contact & Socials</h3>
                <div className="space-y-1">
                   <ContactItem icon={<Mail size={16} />} label="shombhukaran21@gmail.com" link onClick={() => onOpenWindow?.('contact')} />
@@ -82,22 +82,22 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                   <ContactItem icon={<Linkedin size={16} />} label="linkedin.com/in/shombhunath" link onClick={() => window.open('https://www.linkedin.com/in/shombhunath-karan/', '_blank')} />
                   <ContactItem icon={<Globe size={16} />} label="snk.codes" link onClick={() => window.open('https://snk.codes', '_blank')} />
                </div>
-            </div>
-
-            {/* Bottom Status */}
-            <div className="mt-auto pt-4 border-t border-white/5">
-                <div className="flex items-center gap-2 text-[12px] text-white/40">
-                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                    Open to Work
-                </div>
+            
+               {/* Bottom Status */}
+               <div className="mt-auto pt-4 border-t border-white/5">
+                  <div className="flex items-center gap-2 text-[12px] text-white/40">
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      Open to Work
+                  </div>
+               </div>
             </div>
           </div>
 
           {/* RIGHT CONTENT */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
              
              {/* TOP NAVIGATION TABS */}
-             <div className="h-[50px] flex items-center px-6 gap-6">
+             <div className="h-[50px] flex items-center px-4 md:px-6 gap-3 md:gap-6 overflow-x-auto shrink-0">
                 <TabItem 
                    label="Overview" 
                    active={activeTab === 'overview'} 
@@ -121,7 +121,7 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
              </div>
 
              {/* MAIN CONTENT AREA */}
-             <div className="flex-1 overflow-y-auto calendar-scrollbar p-8">
+             <div className="flex-1 overflow-y-auto calendar-scrollbar p-4 md:p-8 min-h-0">
                 
                 {/* --- OVERVIEW TAB (Profile & Skills) --- */}
                 {activeTab === 'overview' && (
@@ -145,7 +145,7 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                       <h2 className="text-[18px] font-semibold mb-4 flex items-center gap-2">
                          <Cpu size={20} className="text-green-400" /> Technical Skills
                       </h2>
-                      <div className="grid grid-cols-2 gap-6 mb-8">
+                      <div className="grid md:grid-cols-2 grid-cols-1 gap-6 mb-8">
                          <div>
                             <h3 className="text-[13px] font-semibold text-white/50 uppercase mb-3">Frontend</h3>
                             <div className="bg-[#2D2D2D] rounded-[8px] border border-white/5 p-1">
@@ -175,9 +175,9 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                       <h1 className="text-[24px] font-semibold mb-6">Education</h1>
                       <div className="space-y-4">
                          <div className="bg-[#2D2D2D] p-5 rounded-[8px] border border-white/5">
-                            <div className="flex justify-between items-start">
+                            <div className="flex md:flex-row flex-col md:justify-between md:items-start gap-3">
                                <div className="flex gap-4">
-                                  <div className="w-10 h-10 rounded bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                  <div className="w-10 h-10 rounded bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
                                      <GraduationCap size={20} />
                                   </div>
                                   <div>
@@ -185,13 +185,13 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                                      <p className="text-[13px] text-white/60">Brainware University</p>
                                   </div>
                                </div>
-                               <span className="text-[12px] bg-white/5 px-2 py-1 rounded text-white/60">2023 - 2027</span>
+                               <span className="text-[12px] bg-white/5 px-2 py-1 rounded text-white/60 whitespace-nowrap shrink-0 md:ml-0 ml-14">2023 - 2027</span>
                             </div>
                          </div>
 
                          <div className="bg-[#2D2D2D] p-5 rounded-[8px] border border-white/5">
                             <div className="flex gap-4">
-                               <div className="w-10 h-10 rounded bg-yellow-500/20 flex items-center justify-center text-yellow-400">
+                               <div className="w-10 h-10 rounded bg-yellow-500/20 flex items-center justify-center text-yellow-400 shrink-0">
                                   <Award size={20} />
                                </div>
                                <div>
@@ -210,9 +210,9 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                    <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-300">
                       <h1 className="text-[24px] font-semibold mb-6">Experience</h1>
                       <div className="bg-[#2D2D2D] p-5 rounded-[8px] border border-white/5">
-                         <div className="flex justify-between items-start mb-2">
+                         <div className="flex md:flex-row flex-col md:justify-between md:items-start gap-3 mb-2">
                             <div className="flex gap-4">
-                               <div className="w-10 h-10 rounded bg-green-500/20 flex items-center justify-center text-green-400">
+                               <div className="w-10 h-10 rounded bg-green-500/20 flex items-center justify-center text-green-400 shrink-0">
                                   <Server size={20} />
                                </div>
                                <div>
@@ -220,7 +220,7 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                                   <p className="text-[13px] text-white/60">ManMed-Dynamics</p>
                                </div>
                             </div>
-                            <span className="text-[12px] bg-white/5 px-2 py-1 rounded text-white/60">Aug 2025 - Present</span>
+                            <span className="text-[12px] bg-white/5 px-2 py-1 rounded text-white/60 whitespace-nowrap shrink-0 md:ml-0 ml-14">Aug 2025 - Present</span>
                          </div>
                          <p className="text-[13px] text-white/50 pl-[56px] leading-relaxed">
                             Leading API and database development for DOSE-CAL, a pediatric dosage & patient management app.
@@ -234,7 +234,7 @@ export default function AboutMe({ onOpenWindow }: AboutMeProps = {}) {
                    <div className="max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-300">
                       <h1 className="text-[24px] font-semibold mb-6">Featured Projects</h1>
                       
-                      <div className="grid grid-cols-3 gap-6 mb-8">
+                      <div className="grid md:grid-cols-3 grid-cols-1 gap-6 mb-8">
                          <ProjectCard 
                            title="Incampus" 
                            desc="College Social Media" 

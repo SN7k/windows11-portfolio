@@ -44,14 +44,15 @@ export default function Taskbar({ windows, onLaunch, onStartToggle, showStart }:
     <>
       {/* Taskbar */}
       <div 
-        className="fixed bottom-0 left-0 right-0 h-12 flex items-center justify-center z-taskbar"
+        className="fixed bottom-0 left-0 right-0 h-12 flex items-center md:justify-center z-taskbar"
         style={{
           background: 'rgba(40, 40, 40, 0.85)',
           backdropFilter: 'blur(80px) saturate(200%)',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)'
         }}
       >
-        <div className="flex items-center gap-1">
+        {/* Left side - Apps (centered on desktop, left on mobile) */}
+        <div className="flex items-center gap-1 pl-1 md:pl-0">
           {/* Start button */}
           <button
             id="win11-start-btn"
@@ -130,8 +131,8 @@ export default function Taskbar({ windows, onLaunch, onStartToggle, showStart }:
         
         {/* Right side system tray */}
         <div className="absolute right-0 flex items-center h-full">
-          {/* System icons */}
-          <div className="flex items-center gap-0.5 px-1.5">
+          {/* System icons - hide volume on mobile */}
+          <div className="hidden md:flex items-center gap-0.5 px-1.5">
             <button 
               className="w-9 h-9 flex items-center justify-center hover:bg-white/[0.06] rounded-md transition-all duration-75" 
               aria-label="Volume"
