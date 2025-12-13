@@ -16,6 +16,15 @@ body {
 
 body {
   cursor: url(/img/cursors/default-cursor.cur), auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Disable right-click context menu */
+body {
+  -webkit-touch-callout: none;
 }
 
 /* Prevent ALL drag ghost images globally */
@@ -24,6 +33,10 @@ body {
 *::after {
   -webkit-user-drag: none !important;
   user-drag: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 
 img, svg, video, canvas {

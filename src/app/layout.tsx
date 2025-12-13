@@ -4,6 +4,7 @@ import { ConnectionProvider } from '@/contexts/ConnectionContext'
 import { VolumeProvider } from '@/contexts/VolumeContext'
 import { WindowsProvider } from '@/contexts/WindowsContext'
 import { GoBackProvider } from '@/contexts/GoBackContext'
+import CopyProtection from '@/components/CopyProtection'
 
 export const metadata: Metadata = {
   title: 'WinStyle-Portfolio | SNK',
@@ -41,6 +42,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/img/windowsmenu.png" />
       </head>
       <body className="cursor-default">
+        <CopyProtection />
         <ConnectionProvider>
           <VolumeProvider>
             <WindowsProvider>

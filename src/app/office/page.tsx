@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { useWindowsStore } from '@/contexts/WindowsContext'
 import { useVolumeStore } from '@/contexts/VolumeContext'
 // Replaced legacy Header/Footer with Windows 11 style StartMenu + Taskbar
@@ -8,6 +9,7 @@ import StartMenu from '@/components/StartMenu/StartMenu'
 import Taskbar from '@/components/Taskbar/Taskbar'
 import DesktopAppsLayout from '@/layouts/DesktopAppsLayout'
 import Window from '@/layouts/Window'
+import ShutdownDialog from '@/components/ShutdownDialog'
 import windowsData from '@/data/windows-data.json'
 
 // Import window components
@@ -39,7 +41,9 @@ interface WindowData {
 }
 
 export default function OfficePage() {
+  const router = useRouter()
   const [showStartMenu, setShowStartMenu] = useState(false)
+  const [showShutdownDialog, setShowShutdownDialog] = useState(false)
   const [windows, setWindows] = useState<WindowData[]>([])
   const [highestZIndex, setHighestZIndex] = useState(0)
   const [activeWindow, setActiveWindow] = useState<string | null>(null)
@@ -64,7 +68,20 @@ export default function OfficePage() {
     volumeStore.playAudio('/sounds/start-windows.mp3')
     volumeStore.unmuteAudio()
 
+    // Handle browser back button
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault()
+      setShowShutdownDialog(true)
+      // Push state back to prevent navigation
+      window.history.pushState(null, '', window.location.pathname)
+    }
+
+    // Add initial state
+    window.history.pushState(null, '', window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+
     return () => {
+      window.removeEventListener('popstate', handlePopState)
       const script = document.getElementById('spotify-player-script')
       if (script) {
         document.head.removeChild(script)
@@ -358,6 +375,28 @@ export default function OfficePage() {
         onStartToggle={toggleStartMenu}
         showStart={showStartMenu}
       />
+      
+      {/* Shutdown Dialog */}
+      {showShutdownDialog && (
+        <ShutdownDialog
+          onCancel={() => setShowShutdownDialog(false)}
+          onConfirm={(action) => {
+            setShowShutdownDialog(false)
+            if (action === 'sleep') {
+              // Go to lock screen for sleep
+              sessionStorage.setItem('currentScreen', 'lock')
+              router.push('/')
+            } else {
+              // Play shutdown sound and go to login page for shutdown/restart
+              volumeStore.playAudio('/sounds/shutdown-windows.mp3')
+              setTimeout(() => {
+                sessionStorage.setItem('currentScreen', 'login')
+                router.push('/')
+              }, 500)
+            }
+          }}
+        />
+      )}
     </section>
   )
 }
