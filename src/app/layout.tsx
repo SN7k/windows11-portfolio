@@ -7,11 +7,13 @@ import { GoBackProvider } from '@/contexts/GoBackContext'
 import CopyProtection from '@/components/CopyProtection'
 
 export const metadata: Metadata = {
-  title: 'WinStyle-Portfolio | SNK',
-  description: 'Windows 11 style portfolio by Shombhunath Karan (SNK) - Full Stack Developer specializing in MERN stack',
-  keywords: 'portfolio, snk, developer, projects, windows 11, full stack, MERN, react, node.js, mongodb',
-  authors: [{ name: 'SNK', url: 'https://snk.codes' }],
-  robots: 'index, follow',
+  title: 'Shombhunath Karan | Full Stack Developer Portfolio',
+  description: 'Portfolio of Shombhunath Karan (SNK) - Full Stack Developer specializing in MERN stack, React, Node.js, MongoDB. Explore my projects and get in touch.',
+  keywords: 'Shombhunath Karan, SNK, Full Stack Developer, MERN Stack, React Developer, Node.js Developer, MongoDB, Portfolio, Web Developer, JavaScript Developer, Frontend Developer, Backend Developer',
+  authors: [{ name: 'Shombhunath Karan', url: 'https://github.com/SN7k' }],
+  creator: 'Shombhunath Karan',
+  publisher: 'Shombhunath Karan',
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   applicationName: 'SNK Portfolio',
   manifest: '/manifest.json',
   appleWebApp: {
@@ -21,15 +23,32 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'WinStyle-Portfolio | SNK',
-    description: 'Windows 11 style portfolio by Shombhunath Karan (SNK) - Full Stack Developer',
+    title: 'Shombhunath Karan | Full Stack Developer Portfolio',
+    description: 'Portfolio of Shombhunath Karan (SNK) - Full Stack Developer specializing in MERN stack. View my projects and skills.',
     siteName: 'SNK Portfolio',
     locale: 'en_US',
+    url: 'https://portfolio.snk.codes',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Shombhunath Karan Portfolio',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WinStyle-Portfolio | SNK',
-    description: 'Windows 11 style portfolio by Shombhunath Karan (SNK) - Full Stack Developer',
+    title: 'Shombhunath Karan | Full Stack Developer Portfolio',
+    description: 'Portfolio of Shombhunath Karan (SNK) - Full Stack Developer specializing in MERN stack',
+    creator: '@shombhu__',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://portfolio.snk.codes',
+  },
+  verification: {
+    google: 'your-google-verification-code',
   },
 }
 
@@ -54,6 +73,27 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="SNK Portfolio" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Shombhunath Karan',
+              alternateName: 'SNK',
+              url: 'https://portfolio.snk.codes',
+              image: 'https://portfolio.snk.codes/og-image.png',
+              jobTitle: 'Full Stack Developer',
+              description: 'Full Stack Developer specializing in MERN stack, React, Node.js, and MongoDB',
+              sameAs: [
+                'https://github.com/SN7k',
+                'https://instagram.com/shombhu__',
+                'https://linkedin.com/in/shombhunath-karan',
+              ],
+              knowsAbout: ['React', 'Node.js', 'MongoDB', 'JavaScript', 'TypeScript', 'MERN Stack', 'Web Development'],
+            }),
+          }}
+        />
       </head>
       <body className="cursor-default">
         <CopyProtection />
