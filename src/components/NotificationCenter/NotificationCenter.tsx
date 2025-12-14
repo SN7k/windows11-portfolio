@@ -133,7 +133,7 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
             <span className="font-semibold text-[14px] text-white">Do not disturb is on</span>
           </div>
           <p className="text-[13px] text-gray-400 ml-[30px] leading-snug">
-            You'll only see banners for priority notifications and alarms.
+            You&apos;ll only see banners for priority notifications and alarms.
           </p>
           <div className="ml-[30px] mt-1">
             <span className="text-[13px] text-[#60cdff] underline decoration-transparent hover:decoration-[#60cdff] cursor-pointer transition-all">
