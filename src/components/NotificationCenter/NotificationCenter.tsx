@@ -12,6 +12,10 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
   const [viewDate, setViewDate] = useState(new Date())
   const [focusMinutes, setFocusMinutes] = useState(30)
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(true)
+  const [calendarView, setCalendarView] = useState<'date' | 'month' | 'year'>('date')
+  const [isScrolling, setIsScrolling] = useState(false)
+  const scrollAccumulator = useRef(0)
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -34,9 +38,58 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside)
+      // Reset to current date and default view when opened
+      setViewDate(new Date())
+      setCalendarView('date')
+      setIsCalendarExpanded(true)
     }
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isOpen, onClose])
+
+  // Handle scroll in calendar with smooth accumulation
+  const handleCalendarScroll = (e: React.WheelEvent) => {
+    e.preventDefault()
+    
+    // Don't process if currently transitioning
+    if (isScrolling) return
+    
+    // Accumulate scroll delta
+    scrollAccumulator.current += e.deltaY
+    
+    // Clear existing timeout
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current)
+    }
+    
+    // Reset accumulator after period of inactivity
+    scrollTimeout.current = setTimeout(() => {
+      scrollAccumulator.current = 0
+    }, 150)
+    
+    // Threshold for triggering navigation (higher = less sensitive)
+    const threshold = 100
+    
+    // Check if accumulated scroll exceeds threshold
+    if (Math.abs(scrollAccumulator.current) >= threshold) {
+      setIsScrolling(true)
+      
+      if (scrollAccumulator.current > 0) {
+        // Scroll down - go to next
+        handleNextMonth()
+      } else {
+        // Scroll up - go to previous
+        handlePrevMonth()
+      }
+      
+      // Reset accumulator
+      scrollAccumulator.current = 0
+      
+      // Reset scrolling state after animation
+      setTimeout(() => {
+        setIsScrolling(false)
+      }, 300)
+    }
+  }
 
   const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
@@ -89,12 +142,62 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
   }
 
   const handlePrevMonth = () => {
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))
+    if (calendarView === 'date') {
+      setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))
+    } else if (calendarView === 'month') {
+      setViewDate(new Date(viewDate.getFullYear() - 1, viewDate.getMonth(), 1))
+    } else if (calendarView === 'year') {
+      setViewDate(new Date(viewDate.getFullYear() - 10, viewDate.getMonth(), 1))
+    }
   }
 
   const handleNextMonth = () => {
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1))
+    if (calendarView === 'date') {
+      setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1))
+    } else if (calendarView === 'month') {
+      setViewDate(new Date(viewDate.getFullYear() + 1, viewDate.getMonth(), 1))
+    } else if (calendarView === 'year') {
+      setViewDate(new Date(viewDate.getFullYear() + 10, viewDate.getMonth(), 1))
+    }
   }
+
+  const handleMonthClick = (monthIndex: number, year: number) => {
+    setViewDate(new Date(year, monthIndex, 1))
+    setCalendarView('date')
+  }
+
+  const handleYearClick = (year: number) => {
+    setViewDate(new Date(year, viewDate.getMonth(), 1))
+    setCalendarView('month')
+  }
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  
+  const getMonthsGrid = () => {
+    const months = []
+    const currentYear = viewDate.getFullYear()
+    
+    // Current year all 12 months
+    for (let i = 0; i < 12; i++) {
+      months.push({ month: i, year: currentYear, type: 'current' })
+    }
+    
+    // Next year first 4 months (Jan, Feb, Mar, Apr)
+    for (let i = 0; i < 4; i++) {
+      months.push({ month: i, year: currentYear + 1, type: 'next' })
+    }
+    
+    return months // Show 4x4 grid (16 months)
+  }
+  
+  const getYearRange = () => {
+    const currentYear = viewDate.getFullYear()
+    const currentDecadeStart = Math.floor(currentYear / 10) * 10
+    // Show 3 years before decade, 10 years in decade, 3 years after
+    const startYear = currentDecadeStart - 3
+    return Array.from({ length: 16 }, (_, i) => startYear + i)
+  }
+
   return (
     <div 
       ref={panelRef}
@@ -185,57 +288,119 @@ export default function NotificationCenter({ isOpen, onClose }: NotificationCent
           className={`overflow-hidden transition-all duration-200 ease-in-out ${
             isCalendarExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
           }`}
+          onWheel={handleCalendarScroll}
         >
           <div className="px-4 pt-3 pb-2">
-          {/* Month Year Controls: "December 2025" */}
+          {/* Month Year Controls */}
           <div className="flex justify-between items-center mb-4">
-            <span className="font-semibold text-[15px] text-white hover:text-gray-300 cursor-pointer transition-colors pl-1">
-              {viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            <span 
+              onClick={() => {
+                if (calendarView === 'date') setCalendarView('month')
+                else if (calendarView === 'month') setCalendarView('year')
+              }}
+              className="font-semibold text-[15px] text-white hover:text-gray-300 cursor-pointer transition-colors pl-1"
+            >
+              {calendarView === 'date' && viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              {calendarView === 'month' && viewDate.getFullYear()}
+              {calendarView === 'year' && `${getYearRange()[3]} - ${getYearRange()[12]}`}
             </span>
             <div className="flex gap-1">
               <button 
                 onClick={handlePrevMonth}
                 className="w-8 h-8 flex items-center justify-center hover:bg-white/5 rounded text-white transition-colors"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                  <path fillRule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                 </svg>
               </button>
               <button 
                 onClick={handleNextMonth}
                 className="w-8 h-8 flex items-center justify-center hover:bg-white/5 rounded text-white transition-colors"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                  <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                 </svg>
               </button>
             </div>
           </div>
 
-          {/* Days Header */}
-          <div className="grid grid-cols-7 mb-2">
-            {dayNames.map(day => (
-              <div key={day} className="text-center text-[13px] text-white font-semibold">
-                {day}
+          {/* Date View */}
+          {calendarView === 'date' && (
+            <>
+              {/* Days Header */}
+              <div className="grid grid-cols-7 mb-2">
+                {dayNames.map(day => (
+                  <div key={day} className="text-center text-[13px] text-white font-semibold">
+                    {day}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-7 gap-y-1 gap-x-1">
-            {calendarGrid.map((dateObj, index) => (
-              <div 
-                key={index}
-                className={`
-                  h-9 w-9 mx-auto flex items-center justify-center rounded-full text-[13px] cursor-default border border-transparent transition-all
-                  ${dateObj.type !== 'current' ? 'text-gray-500' : 'text-white hover:border-gray-500'}
-                  ${isSelectedDate(dateObj.day, dateObj.type) ? '!bg-[#dadada] !text-black font-semibold !border-transparent' : ''} 
-                `}
-              >
-                {dateObj.day}
+              {/* Date Grid */}
+              <div className="grid grid-cols-7 gap-y-1 gap-x-1">
+                {calendarGrid.map((dateObj, index) => (
+                  <div 
+                    key={index}
+                    className={`
+                      h-9 w-9 mx-auto flex items-center justify-center rounded-full text-[13px] cursor-default border border-transparent transition-all
+                      ${dateObj.type !== 'current' ? 'text-gray-500' : 'text-white hover:border-gray-500'}
+                      ${isSelectedDate(dateObj.day, dateObj.type) ? '!bg-[#dadada] !text-black font-semibold !border-transparent' : ''} 
+                    `}
+                  >
+                    {dateObj.day}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
+
+          {/* Month View */}
+          {calendarView === 'month' && (
+            <div className="grid grid-cols-4 gap-x-0 gap-y-2 px-2">
+              {getMonthsGrid().map((item, index) => {
+                const isCurrentMonth = item.month === currentDate.getMonth() && item.year === currentDate.getFullYear()
+                const isNextYear = item.type === 'next'
+                
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleMonthClick(item.month, item.year)}
+                    className={`
+                      w-16 h-16 mx-auto flex items-center justify-center rounded-full text-[13px] transition-all cursor-pointer
+                      ${isCurrentMonth ? 'bg-[#c8c8c8] text-black font-medium' : isNextYear ? 'text-gray-500 hover:bg-white/5' : 'text-white hover:bg-white/5'}
+                    `}
+                  >
+                    {monthNames[item.month]}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          {/* Year View */}
+          {calendarView === 'year' && (
+            <div className="grid grid-cols-4 gap-x-0 gap-y-2 px-2">
+              {getYearRange().map((year, index) => {
+                const isCurrentYear = year === currentDate.getFullYear()
+                const currentDecadeStart = Math.floor(currentDate.getFullYear() / 10) * 10
+                const isOutOfMainDecade = year < currentDecadeStart || year >= currentDecadeStart + 10
+                
+                return (
+                  <button
+                    key={year}
+                    onClick={() => handleYearClick(year)}
+                    className={`
+                      w-16 h-16 mx-auto flex items-center justify-center rounded-full text-[13px] transition-all cursor-pointer
+                      ${isCurrentYear ? 'bg-[#c8c8c8] text-black font-medium' : isOutOfMainDecade ? 'text-gray-500 hover:bg-white/5' : 'text-white hover:bg-white/5'}
+                    `}
+                  >
+                    {year}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
         </div>
         </div>
 
