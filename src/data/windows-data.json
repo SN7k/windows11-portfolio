@@ -17,9 +17,9 @@
     "iconSrc": "https://res.cloudinary.com/dlpskz98w/image/upload/v1765637769/snk_r0ii4z.png",
     "initPositionX": 240,
     "initPositionY": 180,
-    "initWidth": 950,
+    "initWidth": 955,
     "initHeight": 650,
-    "minWidth": 725,
+    "minWidth": 735,
     "minHeight": 500,
     "component": "AboutMe",
     "customTheme": "aboutme"
