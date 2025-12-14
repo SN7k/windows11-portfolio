@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react'
 import WindowsIcon from '@/components/icons/WindowsIcon'
+import NotificationCenter from '@/components/NotificationCenter/NotificationCenter'
 import taskbarAppsData from '@/data/taskbar-apps.json'
 
 interface TaskbarProps {
@@ -14,6 +15,7 @@ export default function Taskbar({ windows, onLaunch, onStartToggle, showStart }:
   const [currentTime, setCurrentTime] = useState('')
   const [currentDate, setCurrentDate] = useState('')
   const [hoveredApp, setHoveredApp] = useState<{ id: string; x: number; title: string } | null>(null)
+  const [showNotificationCenter, setShowNotificationCenter] = useState(false)
 
   useEffect(() => {
     const updateTime = () => {
@@ -130,34 +132,44 @@ export default function Taskbar({ windows, onLaunch, onStartToggle, showStart }:
         </div>
         
         {/* Right side system tray */}
-        <div className="absolute right-0 flex items-center h-full">
-          {/* System icons - hide volume on mobile */}
-          <div className="hidden md:flex items-center gap-0.5 px-1.5">
-            <button 
-              className="w-9 h-9 flex items-center justify-center hover:bg-white/[0.06] rounded-md transition-all duration-75" 
-              aria-label="Volume"
-            >
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
-                <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"/>
-                <path d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
-              </svg>
-            </button>
-          </div>
-          
-          {/* Date/Time */}
-          <button className="px-2.5 h-full flex flex-col items-end justify-center hover:bg-white/[0.06] transition-all duration-75 min-w-[72px]">
-            <span className="text-[11px] text-white leading-[14px] font-normal">{currentTime}</span>
-            <span className="text-[11px] text-white/80 leading-[14px] font-normal">{currentDate}</span>
+        <div className="absolute right-0 flex items-center h-full gap-1 pr-1">
+          {/* System icons group - WiFi and Volume combined */}
+          <button 
+            className="h-10 flex items-center gap-2.5 px-2.5 rounded-md hover:bg-white/[0.06] active:bg-white/[0.04] transition-all duration-75 active:scale-[0.85]"
+            aria-label="Network and Volume"
+          >
+            {/* WiFi Icon */}
+            <svg className="w-4 h-4 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M15.384 6.115a.485.485 0 0 0-.047-.736A12.444 12.444 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c2.507 0 4.827.802 6.716 2.164.205.148.49.13.668-.049z"/>
+              <path d="M13.229 8.271a.482.482 0 0 0-.063-.745A9.455 9.455 0 0 0 8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065A8.46 8.46 0 0 1 8 7a8.46 8.46 0 0 1 4.576 1.336c.206.132.48.108.653-.065zm-2.183 2.183c.226-.226.185-.605-.1-.75A6.473 6.473 0 0 0 8 9c-1.06 0-2.062.254-2.946.704-.285.145-.326.524-.1.75l.015.015c.16.16.407.19.611.09A5.478 5.478 0 0 1 8 10c.868 0 1.69.201 2.42.56.203.1.45.07.61-.091l.016-.015zM9.06 12.44c.196-.196.198-.52-.04-.66A1.99 1.99 0 0 0 8 11.5a1.99 1.99 0 0 0-1.02.28c-.238.14-.236.464-.04.66l.706.706a.5.5 0 0 0 .707 0l.707-.707z"/>
+            </svg>
+            
+            {/* Volume Icon */}
+            <svg className="w-4 h-4 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
+              <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"/>
+              <path d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
+            </svg>
           </button>
           
-          {/* Notification center */}
+          {/* Combined Date/Time/Notification section */}
           <button 
-            className="w-11 h-full flex items-center justify-center hover:bg-white/[0.06] transition-all duration-75 border-l" 
-            style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }} 
-            aria-label="Notifications"
+            data-clock-trigger
+            data-notification-trigger
+            onClick={() => setShowNotificationCenter(!showNotificationCenter)}
+            className={`h-10 flex items-center gap-2.5 px-2.5 rounded-md transition-all duration-75 active:scale-[0.85] ${
+              showNotificationCenter ? 'bg-white/[0.12]' : 'hover:bg-white/[0.06] active:bg-white/[0.04]'
+            }`}
+            aria-label="Notifications and Calendar"
           >
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 16 16">
+            {/* Time and Date */}
+            <div className="flex flex-col items-end justify-center">
+              <span className="text-[11px] text-white leading-[14px] font-normal">{currentTime}</span>
+              <span className="text-[11px] text-white/80 leading-[14px] font-normal">{currentDate}</span>
+            </div>
+            
+            {/* Notification Icon */}
+            <svg className="w-4 h-4 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 16 16">
               <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
             </svg>
           </button>
@@ -180,6 +192,12 @@ export default function Taskbar({ windows, onLaunch, onStartToggle, showStart }:
           {hoveredApp.title}
         </div>
       )}
+
+      {/* Notification Center */}
+      <NotificationCenter 
+        isOpen={showNotificationCenter}
+        onClose={() => setShowNotificationCenter(false)}
+      />
     </>
   )
 }
