@@ -70,7 +70,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href={require('@/data/cloudinary-images.json').windowsMenu} />
         <link rel="apple-touch-icon" href="https://res.cloudinary.com/dlpskz98w/image/upload/v1765637284/windowsmenu_hdoevn.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="SNK Portfolio" />
         <script
