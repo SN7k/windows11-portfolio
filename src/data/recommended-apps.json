@@ -1,4 +1,5 @@
 [
-  { "id": "recent1", "title": "Screenshot", "description": "2m ago", "iconSrc": "/img/icons/projects/edge-96.png" },
-  { "id": "recent2", "title": "Project Update", "description": "Today", "iconSrc": "/img/icons/notepad/notepad-96.png" }
+  { "id": "github", "title": "GitHub", "description": "github.com/SN7k", "iconSrc": "https://cdn.simpleicons.org/github/white", "url": "https://github.com/SN7k" },
+  { "id": "instagram", "title": "Instagram", "description": "@shombhu__", "iconSrc": "https://static.cdninstagram.com/rsrc.php/v3/yt/r/30PrGfR3xhB.png", "url": "https://instagram.com/shombhu__" },
+  { "id": "linkedin", "title": "LinkedIn", "description": "linkedin.com/in/shombhunath-karan", "iconSrc": "https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca", "url": "https://linkedin.com/in/shombhunath-karan" }
 ]

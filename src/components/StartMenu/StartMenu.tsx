@@ -12,6 +12,7 @@ interface AppItem {
 
 interface RecommendedItem extends AppItem {
   description: string
+  url?: string
 }
 
 interface StartMenuProps {
@@ -215,7 +216,14 @@ export default function StartMenu({ onLaunch, onClose, isOpen = true, onPowerAct
                 {(recommendedApps as RecommendedItem[]).map((item) => (
                   <button
                     key={item.id}
-                    onClick={() => handleLaunch(item.id)}
+                    onClick={() => {
+                      if (item.url) {
+                        window.open(item.url, '_blank')
+                        handleClose()
+                      } else {
+                        handleLaunch(item.id)
+                      }
+                    }}
                     className="flex items-center gap-3 p-2 rounded-md hover:bg-white/[0.06] active:bg-white/[0.08] text-left group transition-all"
                   >
                     <div className="w-8 h-8 flex-shrink-0">
